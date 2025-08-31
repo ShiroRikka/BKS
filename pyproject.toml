@@ -1,0 +1,22 @@
+[project]
+name = "bbs"
+version = "0.1.0"
+description = "A Python application to fetch, store, and analyze Chinese A-share bank stocks with valuation metrics and quantitative strategies."
+
+requires-python = ">=3.10"
+
+dependencies = [
+    "loguru>=0.7.3",
+    "ta-lib>=0.6.6",
+    "python-dotenv>=1.1.1",
+    "matplotlib>=3.10.6",
+    "ruff>=0.12.11",
+    "backtrader2>=1.9.76.123",
+    "plotly>=6.3.0",
+    "pandas>=2.3.2",
+    "akshare>=1.17.44",
+    "numpy>=2.2.6",
+    "seaborn>=0.13.2",
+    "pyyaml>=6.0.2",
+    "notebook>=7.4.5",
+]

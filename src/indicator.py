@@ -39,17 +39,18 @@ def add_momentum_indicators(df: pd.DataFrame) -> pd.DataFrame:
     df["rsi_14"] = ta.RSI(df["close"].values, timeperiod=14)
     df["rsi_7"] = ta.RSI(df["close"].values, timeperiod=7)
 
-    # # 随机震荡器 Stochastic
-    # df["slowk"], df["slowd"] = ta.STOCH(
-    #     df["high"].values,
-    #     df["low"].values,
-    #     df["close"].values,
-    #     fastk_period=14,
-    #     slowk_period=3,
-    #     slowk_matype=0,
-    #     slowd_period=3,
-    #     slowd_matype=0,
-    # )
+    # 随机震荡器 Stochastic
+    df["K"], df["D"] = ta.STOCH(
+        df["high"].values,
+        df["low"].values,
+        df["close"].values,
+        fastk_period=9,
+        slowk_period=3,
+        slowk_matype=1,
+        slowd_period=3,
+        slowd_matype=1,
+    )
+    df["J"] = 3 * df["K"] - 2 * df["D"]
 
     # # CCI
     # df["cci"] = ta.CCI(df["high"].values, df["low"].values, df["close"].values, timeperiod=14)

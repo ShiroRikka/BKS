@@ -2,7 +2,7 @@
 from loguru import logger
 
 from src.data_loader import get_stock_data  # 导入函数
-from src.indicator import add_all_indicators
+from src.indicator_MyTT import add_all_indicators
 from src.utils import save_dataframe_to_processed
 
 

@@ -14,20 +14,10 @@ if __name__ == "__main__":
 
     df = get_stock_data()
 
-
-    logger.info("🧾 各列数据类型如下：")
-    for col in df.columns:
-        dtype = df[col].dtype
-        sample = df[col].iloc[1]
-        logger.info(f"  📌 {col}: {dtype}，示例值 = {sample}")
-
-
-
     df = add_all_indicators(df)
 
     logger.info(df.tail(3))
 
     stock_code = df['股票代码'].iloc[0]
-    # save_dataframe_to_processed(df, f"{stock_code}", format="parquet")
     save_dataframe_to_processed(df, f"{stock_code}", format="csv")
     logger.info("✅ 程序运行完毕。")

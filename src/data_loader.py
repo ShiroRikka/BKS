@@ -1,30 +1,15 @@
 import akshare as ak
 import pandas as pd
-import yaml
 from loguru import logger
-
-
-def load_config(config_file: str = "config/config.yaml"):
-    """读取 yaml 配置并拆包返回常用字段"""
-    with open(config_file, "r", encoding="utf-8") as f:
-        cfg = yaml.safe_load(f)
-        logger.info(f"✅ 配置文件已加载: {config_file}")
-        stock = cfg["stock"]
-        return (
-            stock["symbol"],
-            stock["adjust"],
-            stock["period"],
-            stock["start_date"],
-            stock["end_date"],
-        )
-
+from .utils import save_dataframe_to_raw
+from .config_manager import load_config
 
 def get_stock_data() -> pd.DataFrame:
     """
     获取A股个股前复权行情数据，通过config.yaml传入配置
     :return: pandas.DataFrame
     """
-    symbol, adjust, period, start_date, end_date = load_config()
+    symbol, adjust, period, start_date, end_date,_,_ = load_config()
     try:
         df = ak.stock_zh_a_hist(
             symbol=symbol,
@@ -35,6 +20,9 @@ def get_stock_data() -> pd.DataFrame:
         )
         if df.empty:
             raise ValueError(f"未获取到股票 {symbol} 的数据，请检查股票代码")
+
+        save_dataframe_to_raw(df, f"{symbol}_{adjust}_{period}", format="csv")
+
 
         column_mapping = {
             "日期": "date",
@@ -53,6 +41,7 @@ def get_stock_data() -> pd.DataFrame:
         df["date"] = pd.to_datetime(df["date"])
         df = df.set_index("date").sort_index()
 
+        df['volume'] = df['volume'].astype('float64')
         logger.success(f"✅ 成功获取股票 {symbol} 数据 ({len(df)} 行)")
         return df
 

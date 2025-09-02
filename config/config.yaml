@@ -6,9 +6,10 @@ stock:
   end_date: "20500101"
   adjust: "qfq"
 
-save_path:
+save:
   raw: "data/raw/"
   processed: "data/processed/"
+  output_format: "parquet"
 
 features:
   include_macd: true

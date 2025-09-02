@@ -8,7 +8,6 @@ from .config_manager import load_config
 
 def add_trend_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """添加趋势类指标"""
-    df = df.copy()
 
     # MACD
     df["MACD_DIF"], df["MACD_DEA"], df["MACD_M"] = MACD(df["close"].values, 12, 26, 9)
@@ -18,7 +17,6 @@ def add_trend_indicators(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def add_rsi_indicator(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.copy()
     df["rsi_14"] = RSI(df["close"].values, 14)
     df["rsi_7"] = RSI(df["close"].values, 7)
     logger.info("⚡ RSI 计算完成")
@@ -26,7 +24,6 @@ def add_rsi_indicator(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def add_kdj_indicator(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.copy()
     df["K"], df["D"], df["J"] = KDJ(
         df["close"].values, df["high"].values, df["low"].values, 9, 3, 3
     )
@@ -36,7 +33,6 @@ def add_kdj_indicator(df: pd.DataFrame) -> pd.DataFrame:
 
 def add_volatility_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """添加波动率指标"""
-    df = df.copy()
 
     # 布林带 (Bollinger Bands)
     df["bb_upper"], df["bb_middle"], df["bb_lower"] = BOLL(df["close"].values, 20, 2)
@@ -47,7 +43,6 @@ def add_volatility_indicators(df: pd.DataFrame) -> pd.DataFrame:
 
 def add_volume_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """添加成交量相关指标"""
-    df = df.copy()
 
     # OBV（能量潮）
     df["obv"] = OBV(df["close"].values, df["volume"].values)
@@ -57,6 +52,7 @@ def add_volume_indicators(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def add_all_indicators(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
     config = load_config()["features"]
 
     if config.get("include_macd"):

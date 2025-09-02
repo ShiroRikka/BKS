@@ -19,4 +19,5 @@ dependencies = [
     "seaborn>=0.13.2",
     "pyyaml>=6.0.2",
     "notebook>=7.4.5",
+    "pyarrow>=21.0.0",
 ]

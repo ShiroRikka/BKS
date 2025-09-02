@@ -1,7 +1,9 @@
 # src/config_manager.py
+from pathlib import Path  # 确保导入 Path
+
 import yaml
 from loguru import logger
-from pathlib import Path # 确保导入 Path
+
 
 # 建议 config_file 类型为 Path，并设置默认值
 def load_config(config_file: Path = Path("config/config.yaml")):

@@ -2,8 +2,8 @@
 import pandas as pd
 from loguru import logger
 
-from .config_manager import load_config
 from .MyTT import KDJ, MACD, RSI, BOLL, OBV
+from .config_manager import load_config
 
 
 def add_trend_indicators(df: pd.DataFrame) -> pd.DataFrame:
@@ -67,12 +67,16 @@ def add_all_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """
     config = load_config()["features"]
 
-    if config.get("include_macd"): df = add_trend_indicators(df)
-    if config.get("include_rsi"): df = add_momentum_indicators(df)
-    if config.get("include_kdj"): df = add_momentum_indicators(df)
-    if config.get("include_boll"): df = add_volatility_indicators(df)
-    if config.get("include_obv"): df = add_volume_indicators(df)
-
+    if config.get("include_macd"):
+        df = add_trend_indicators(df)
+    if config.get("include_rsi"):
+        df = add_momentum_indicators(df)
+    if config.get("include_kdj"):
+        df = add_momentum_indicators(df)
+    if config.get("include_boll"):
+        df = add_volatility_indicators(df)
+    if config.get("include_obv"):
+        df = add_volume_indicators(df)
 
     logger.success(f"✅ 所有技术指标添加完成，当前列数: {len(df.columns)}")
     return df

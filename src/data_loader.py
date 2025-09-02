@@ -2,8 +2,9 @@
 import akshare as ak
 import pandas as pd
 from loguru import logger
-from .utils import save_dataframe_to_raw
+
 from .config_manager import load_config
+from .utils import save_dataframe_to_raw
 
 
 def get_stock_data() -> pd.DataFrame:
@@ -35,7 +36,6 @@ def get_stock_data() -> pd.DataFrame:
         filename = f"{symbol}_{adjust}_{period}"
         save_dataframe_to_raw(df, filename, format="csv")
 
-
         column_mapping = {
             "日期": "date",
             "开盘": "open",
@@ -53,7 +53,7 @@ def get_stock_data() -> pd.DataFrame:
         df["date"] = pd.to_datetime(df["date"])
         df = df.set_index("date").sort_index()
 
-        df['volume'] = df['volume'].astype('float64')
+        df["volume"] = df["volume"].astype("float64")
         logger.success(f"✅ 成功获取股票 {symbol} 数据 ({len(df)} 行)")
         return df
 

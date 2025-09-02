@@ -8,15 +8,18 @@ from src.utils.get_data import get_stock_data
 from src.utils.indicator_MyTT import add_all_indicators
 
 
-def get_boll_columns(df: pd.DataFrame):
-    df_boll = get_latest_two_rows_for_crossover(
-        df, ["boll_upper", "boll_middle", "boll_lower"]
-    )
-    logger.debug(df_boll)
-    return df_boll
+class BollSignal:
+    def __init__(self):
+        self.required_columns = ["boll_upper", "boll_middle", "boll_lower"]
+
+    def get_boll_columns(self, df: pd.DataFrame):
+        df_boll = get_latest_two_rows_for_crossover(df, self.required_columns)
+        logger.debug(df_boll)
+        return df_boll
 
 
 if __name__ == "__main__":
     debug_df = get_stock_data()
     debug_df = add_all_indicators(debug_df)
-    get_boll_columns(debug_df)
+    bool_signal = BollSignal()
+    bool_signal.get_boll_columns(debug_df)

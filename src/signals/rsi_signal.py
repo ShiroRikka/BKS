@@ -1,7 +1,7 @@
 import pandas as pd
 from loguru import logger
 
-from base import get_latest_two_rows_for_crossover
+from base import get_require_columns
 
 # debug
 from src.utils.get_data import get_stock_data
@@ -13,7 +13,7 @@ class RsiSignal:
         self.required_colums = ["rsi_14"]
 
     def get_rsi_columns(self, df: pd.DataFrame):
-        df_rsi = get_latest_two_rows_for_crossover(df, self.required_colums)
+        df_rsi = get_require_columns(df, self.required_colums)
         logger.debug(df_rsi)
         return df_rsi
 

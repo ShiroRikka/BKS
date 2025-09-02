@@ -1,7 +1,7 @@
 import pandas as pd
 from loguru import logger
 
-from base import get_latest_two_rows_for_crossover
+from base import get_require_columns
 
 # debug
 from src.utils.get_data import get_stock_data
@@ -13,7 +13,7 @@ class BollSignal:
         self.required_columns = ["boll_upper", "boll_middle", "boll_lower"]
 
     def get_boll_columns(self, df: pd.DataFrame):
-        df_boll = get_latest_two_rows_for_crossover(df, self.required_columns)
+        df_boll = get_require_columns(df, self.required_columns)
         logger.debug(df_boll)
         return df_boll
 

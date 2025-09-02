@@ -1,7 +1,7 @@
 import pandas as pd
 from loguru import logger
 
-from base import get_latest_two_rows_for_crossover
+from base import get_require_columns
 
 # debug
 from src.utils.get_data import get_stock_data
@@ -13,7 +13,7 @@ class KdjSignal:
         self.required_columns = ["kdj_k", "kdj_d", "kdj_j"]
 
     def get_kdj_columns(self, df: pd.DataFrame):
-        df_kdj = get_latest_two_rows_for_crossover(df, self.required_columns)
+        df_kdj = get_require_columns(df, self.required_columns)
         logger.debug(df_kdj)
         return df_kdj
 

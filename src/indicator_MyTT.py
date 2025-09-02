@@ -2,8 +2,7 @@
 import pandas as pd
 from loguru import logger
 
-from .MyTT import KDJ, MACD, RSI, BOLL, OBV
-from .config_manager import load_config
+from src.utils.MyTT import KDJ, MACD, RSI, BOLL, OBV
 
 
 def add_macd_indicators(df: pd.DataFrame) -> pd.DataFrame:

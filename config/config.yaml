@@ -9,7 +9,7 @@ stock:
 save:
   raw: "data/raw/"
   processed: "data/processed/"
-  output_format: "parquet"
+  output_format: "csv"
 
 features:
   include_macd: true

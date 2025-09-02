@@ -10,7 +10,7 @@ def add_macd_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """添加趋势类指标"""
 
     # MACD
-    df["MACD_DIF"], df["MACD_DEA"], df["MACD_M"] = MACD(df["close"].values, 12, 26, 9)
+    df["macd_dif"], df["macd_dea"], df["macd"] = MACD(df["close"].values, 12, 26, 9)
 
     logger.info("📈 MACD 计算完成")
     return df
@@ -24,7 +24,7 @@ def add_rsi_indicator(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def add_kdj_indicator(df: pd.DataFrame) -> pd.DataFrame:
-    df["K"], df["D"], df["J"] = KDJ(
+    df["kdj_k"], df["kdj_d"], df["kdj_j"] = KDJ(
         df["close"].values, df["high"].values, df["low"].values, 9, 3, 3
     )
     logger.info("⚡ KDJ 计算完成")
@@ -35,7 +35,7 @@ def add_boll_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """添加波动率指标"""
 
     # 布林带 (Bollinger Bands)
-    df["bb_upper"], df["bb_middle"], df["bb_lower"] = BOLL(df["close"].values, 20, 2)
+    df["boll_upper"], df["boll_middle"], df["boll_lower"] = BOLL(df["close"].values, 20, 2)
 
     logger.info("📉 布林带 计算完成")
     return df

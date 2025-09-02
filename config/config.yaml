@@ -5,6 +5,14 @@ stock:
   start_date: "19700101"
   end_date: "20500101"
   adjust: "qfq"
+
 save_path:
   raw: "data/raw/"
   processed: "data/processed/"
+
+features:
+  include_macd: true
+  include_rsi: true
+  include_kdj: true
+  include_boll: true
+  include_obv: false

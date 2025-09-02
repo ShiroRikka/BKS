@@ -2,9 +2,7 @@
 from loguru import logger
 
 
-from src.get_data import get_stock_data  # 导入函数
-from src.indicator_MyTT import add_all_indicators
-
+from src.utils.get_data import get_stock_data  # 导入函数
 
 if __name__ == "__main__":
     logger.info("🚀 开始运行：获取数据并计算技术指标")

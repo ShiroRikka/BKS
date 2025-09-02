@@ -11,13 +11,12 @@ def load_config(config_file: Path = Path("config/config.yaml")):
         logger.info(f"✅ 配置文件已加载: {config_file}")
         stock = cfg["stock"]
         save_path = cfg["save_path"]
-        return (
-            stock["symbol"],
-            stock["adjust"],
-            stock["period"],
-            stock["start_date"],
-            stock["end_date"],
-            Path(save_path["raw"]),       # 转换为 Path 对象
-            Path(save_path["processed"])   # 转换为 Path 对象
-        )
-
+        return {
+                "symbol": cfg["stock"]["symbol"],
+                "adjust": cfg["stock"]["adjust"],
+                "period": cfg["stock"]["period"],
+                "start_date": cfg["stock"]["start_date"],
+                "end_date": cfg["stock"]["end_date"],
+                "raw_path": Path(cfg["save_path"]["raw"]),
+                "processed_path": Path(cfg["save_path"]["processed"]),
+        }

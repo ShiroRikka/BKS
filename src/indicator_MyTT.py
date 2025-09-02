@@ -9,7 +9,7 @@ def add_trend_indicators(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
     # MACD
-    df["MACD_DIF"], df["MACE_DEA"], df["MACD_M"] = MACD(df["close"].values, 12, 26, 9)
+    df["MACD_DIF"], df["MACD_DEA"], df["MACD_M"] = MACD(df["close"].values, 12, 26, 9)
 
     logger.info("📈 趋势类指标计算完成：MACD")
     return df

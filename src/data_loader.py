@@ -1,16 +1,26 @@
+# src/data_loader.py
 import akshare as ak
 import pandas as pd
 from loguru import logger
 from .utils import save_dataframe_to_raw
 from .config_manager import load_config
 
+
 def get_stock_data() -> pd.DataFrame:
     """
     获取A股个股前复权行情数据，通过config.yaml传入配置
     :return: pandas.DataFrame
     """
-    symbol, adjust, period, start_date, end_date,_,_ = load_config()
+    config = load_config()
+
+    symbol = config["symbol"]
+    adjust = config["adjust"]
+    period = config["period"]
+    start_date = config["start_date"]
+    end_date = config["end_date"]
+
     try:
+        logger.info(f"📡 正在获取股票 {symbol} 数据...")
         df = ak.stock_zh_a_hist(
             symbol=symbol,
             period=period,
@@ -19,9 +29,11 @@ def get_stock_data() -> pd.DataFrame:
             adjust=adjust,
         )
         if df.empty:
-            raise ValueError(f"未获取到股票 {symbol} 的数据，请检查股票代码")
+            raise ValueError(f"未获取到股票 {symbol} 的数据，请检查股票代码或日期范围")
 
-        save_dataframe_to_raw(df, f"{symbol}_{adjust}_{period}", format="csv")
+        # 保存原始数据
+        filename = f"{symbol}_{adjust}_{period}"
+        save_dataframe_to_raw(df, filename, format="csv")
 
 
         column_mapping = {
@@ -46,5 +58,5 @@ def get_stock_data() -> pd.DataFrame:
         return df
 
     except Exception as e:
-        logger.error(f"获取股票 {symbol} 数据失败: {e}")
+        logger.error(f"❌ 获取股票 {symbol} 数据失败: {e}")
         return pd.DataFrame()

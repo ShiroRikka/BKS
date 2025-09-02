@@ -17,25 +17,20 @@ def add_trend_indicators(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def add_momentum_indicators(df: pd.DataFrame) -> pd.DataFrame:
-    """添加动量类指标"""
+def add_rsi_indicator(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-
-    # RSI
     df["rsi_14"] = RSI(df["close"].values, 14)
     df["rsi_7"] = RSI(df["close"].values, 7)
+    logger.info("⚡ RSI 计算完成")
+    return df
 
-    # 随机震荡器 Stochastic
+
+def add_kdj_indicator(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
     df["K"], df["D"], df["J"] = KDJ(
-        df["close"].values,
-        df["high"].values,
-        df["low"].values,
-        9,
-        3,
-        3,
+        df["close"].values, df["high"].values, df["low"].values, 9, 3, 3
     )
-
-    logger.info("⚡ RSI, KDJ 计算完成")
+    logger.info("⚡ KDJ 计算完成")
     return df
 
 
@@ -62,17 +57,14 @@ def add_volume_indicators(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def add_all_indicators(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    一键添加所有技术指标
-    """
     config = load_config()["features"]
 
     if config.get("include_macd"):
         df = add_trend_indicators(df)
     if config.get("include_rsi"):
-        df = add_momentum_indicators(df)
+        df = add_rsi_indicator(df)
     if config.get("include_kdj"):
-        df = add_momentum_indicators(df)
+        df = add_kdj_indicator(df)
     if config.get("include_boll"):
         df = add_volatility_indicators(df)
     if config.get("include_obv"):

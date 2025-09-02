@@ -52,18 +52,16 @@ def add_obv_indicators(df: pd.DataFrame) -> pd.DataFrame:
 
 def add_all_indicators(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-    config = load_config()["features"]
 
-    if config.get("include_macd"):
-        df = add_macd_indicators(df)
-    if config.get("include_rsi"):
-        df = add_rsi_indicator(df)
-    if config.get("include_kdj"):
-        df = add_kdj_indicator(df)
-    if config.get("include_boll"):
-        df = add_boll_indicators(df)
-    if config.get("include_obv"):
-        df = add_obv_indicators(df)
+    df = add_macd_indicators(df)
+
+    df = add_rsi_indicator(df)
+
+    df = add_kdj_indicator(df)
+
+    df = add_boll_indicators(df)
+
+    df = add_obv_indicators(df)
 
     logger.success(f"✅ 所有技术指标添加完成，当前列数: {len(df.columns)}")
     return df

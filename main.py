@@ -1,17 +1,17 @@
 # main.py
 from loguru import logger
 
-
-from src.utils.get_data import get_stock_data  # 导入函数
+from src.utils.get_data import get_stock_data
+from src.utils.indicator_MyTT import add_all_indicators
 
 if __name__ == "__main__":
     logger.info("🚀 开始运行：获取数据并计算技术指标")
 
-    df = get_stock_data()
+    raw_df = get_stock_data()
 
-    # df = add_all_indicators(df)
+    indicators_df = add_all_indicators(raw_df)
 
-    logger.info(df.tail(3))
+    result_df = indicators_df
 
-    # stock_code = df["股票代码"].iloc[0]
+    logger.debug(result_df.tail(3))
     logger.info("✅ 程序运行完毕。")

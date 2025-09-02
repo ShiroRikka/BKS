@@ -17,7 +17,6 @@ def add_macd_indicators(df: pd.DataFrame) -> pd.DataFrame:
 
 def add_rsi_indicator(df: pd.DataFrame) -> pd.DataFrame:
     df["rsi_14"] = RSI(df["close"].values, 14)
-    df["rsi_7"] = RSI(df["close"].values, 7)
     logger.info("⚡ RSI 计算完成")
     return df
 
@@ -34,7 +33,9 @@ def add_boll_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """添加波动率指标"""
 
     # 布林带 (Bollinger Bands)
-    df["boll_upper"], df["boll_middle"], df["boll_lower"] = BOLL(df["close"].values, 20, 2)
+    df["boll_upper"], df["boll_middle"], df["boll_lower"] = BOLL(
+        df["close"].values, 20, 2
+    )
 
     logger.info("📉 布林带 计算完成")
     return df

@@ -6,7 +6,7 @@ from .MyTT import KDJ, MACD, RSI, BOLL, OBV
 from .config_manager import load_config
 
 
-def add_trend_indicators(df: pd.DataFrame) -> pd.DataFrame:
+def add_macd_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """添加趋势类指标"""
 
     # MACD
@@ -31,7 +31,7 @@ def add_kdj_indicator(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def add_volatility_indicators(df: pd.DataFrame) -> pd.DataFrame:
+def add_boll_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """添加波动率指标"""
 
     # 布林带 (Bollinger Bands)
@@ -41,7 +41,7 @@ def add_volatility_indicators(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def add_volume_indicators(df: pd.DataFrame) -> pd.DataFrame:
+def add_obv_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """添加成交量相关指标"""
 
     # OBV（能量潮）
@@ -56,15 +56,15 @@ def add_all_indicators(df: pd.DataFrame) -> pd.DataFrame:
     config = load_config()["features"]
 
     if config.get("include_macd"):
-        df = add_trend_indicators(df)
+        df = add_macd_indicators(df)
     if config.get("include_rsi"):
         df = add_rsi_indicator(df)
     if config.get("include_kdj"):
         df = add_kdj_indicator(df)
     if config.get("include_boll"):
-        df = add_volatility_indicators(df)
+        df = add_boll_indicators(df)
     if config.get("include_obv"):
-        df = add_volume_indicators(df)
+        df = add_obv_indicators(df)
 
     logger.success(f"✅ 所有技术指标添加完成，当前列数: {len(df.columns)}")
     return df

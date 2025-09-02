@@ -11,8 +11,7 @@ def load_config(config_file: Path = Path("config/config.yaml")):
     with open(config_file, "r", encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
         logger.info(f"✅ 配置文件已加载: {config_file}")
-        stock = cfg["stock"]
-        save = cfg["save"]
+
         return {
             "symbol": cfg["stock"]["symbol"],
             "adjust": cfg["stock"]["adjust"],
